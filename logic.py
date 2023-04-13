@@ -1,0 +1,72 @@
+import numpy as np
+
+
+# simulate one generation of the automaton
+# todo - organize the parameters the function gets
+def one_generation(old_grid, color_grid, param):
+    # Create a new grid to store the new state of the automaton
+    new_grid = np.zeros_like(old_grid)
+    # Loop through the cells of the grid
+    for i in range(param.grid_size):
+        for j in range(param.grid_size):
+            # If the cell is empty, skip it
+            if old_grid[i, j] == 0:
+                continue
+            # if the cell does not have the rumor, check if it should get it
+            elif old_grid[i, j] == 1:
+                # Get the neighbors of the cell
+                neighbors = old_grid[max(0, i - 1):min(param.grid_size, i + 2),
+                            max(0, j - 1):min(param.grid_size, j + 2)]
+                # Get the number of neighbors that have the rumor
+                num_neighbors_with_rumor = np.sum(neighbors == -1)
+                # If the cell has no neighbors with the rumor, skip it
+                if num_neighbors_with_rumor == 0:
+                    new_grid[i, j] = 1
+                    continue
+                # if the cell has one neighbor with the rumor, update its color in the color grid to 2
+                color_grid[i, j] = 2
+                # Get the skepticism level of the cell
+                if num_neighbors_with_rumor == 1:
+                    skepticism_level = param.skepticism[i, j]
+                else:
+                    skepticism_level = param.skepticism_reduction[param.skepticism[i, j]]
+                # Get the probability of transmission
+                transmission_probability = param.transmission_probabilities[skepticism_level]
+                # Check if the cell should get the rumor
+                if np.random.random() < transmission_probability:
+                    new_grid[i, j] = -1
+                else:
+                    new_grid[i, j] = 1
+
+            # If the cell has the rumor, update its value to no_rumor_time+1
+            elif old_grid[i, j] == -1:
+                new_grid[i, j] = param.no_rumor_time + 1
+
+            # If the cell has a value greater than 1, reduce it by 1
+            elif old_grid[i, j] > 1:
+                new_grid[i, j] = old_grid[i, j] - 1
+
+    return new_grid, color_grid
+
+
+def init_simulation(param):
+    # Create a grid with the specified population density
+    grid = np.random.choice([0, 1], size=(param.grid_size, param.grid_size),
+                            p=[1 - param.population_density, param.population_density])
+    # Create a grid to store the color of each cell (0 for empty, 1 for no rumor, 2 for rumor)
+    color_grid = np.copy(grid)
+    # init random cell with the rumor in grid and color grid
+    i = np.random.randint(0, param.grid_size)
+    j = np.random.randint(0, param.grid_size)
+    grid[i, j] = -1
+    color_grid[i, j] = 2
+
+    return grid, color_grid
+
+
+def update(root, old_grid, old_color_grid, param, gridVis):
+    # run one generation of the simulation
+    new_grid, new_color_grid = one_generation(old_grid, old_color_grid, param)
+    # update the grid
+    gridVis.draw_grid(new_color_grid)
+    root.after(100, update, root, new_grid, new_color_grid, param, gridVis)
