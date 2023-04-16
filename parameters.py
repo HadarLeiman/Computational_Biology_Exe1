@@ -18,7 +18,7 @@ class parameters:
 
     # Define the parameters for skepticism reduction when faced with multiple rumors
     skepticism_reduction = {
-        "S4": "S4",
+        "S4": "S3",
         "S3": "S2",
         "S2": "S1",
         "S1": "S1"
