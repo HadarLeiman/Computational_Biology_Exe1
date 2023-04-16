@@ -28,9 +28,8 @@ class GridVisualizer:
         text_frame.grid(row=6, column=2)
 
         # create the text widget in the frame
-        text = tk.Text(text_frame, height=2, width=35)
+        text = tk.Text(text_frame, height=2, width=40)
         text.grid(row=6, column=2)
-        text.insert(tk.END, "Exposed to rumor: " + str(100*np.sum(grid == 2)/(np.sum(grid == 1) + np.sum(grid == 2))) + "%"+
+        text.insert(tk.END, "Exposed to rumor: " + str(round(100*np.sum(grid == 2)/(np.sum(grid == 1) + np.sum(grid == 2)),2)) + "%"+
                     "(" + str(np.sum(grid == 2)) + "/" + str(np.sum(grid == 1) + np.sum(grid == 2)) + ")" +
                     "\nGeneration: " + str(count_gen))
-

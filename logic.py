@@ -38,9 +38,9 @@ def one_generation(old_grid, color_grid, param):
                 else:
                     new_grid[i, j] = 1
 
-            # If the cell has the rumor, update its value to no_rumor_time+1
+            # If the cell has the rumor, update its value to gossip_rest_period+1
             elif old_grid[i, j] == -1:
-                new_grid[i, j] = param.no_rumor_time + 1
+                new_grid[i, j] = param.gossip_rest_period + 1
 
             # If the cell has a value greater than 1, reduce it by 1
             elif old_grid[i, j] > 1:
@@ -53,13 +53,19 @@ def init_simulation(param):
     # Create a grid with the specified population density
     grid = np.random.choice([0, 1], size=(param.grid_size, param.grid_size),
                             p=[1 - param.population_density, param.population_density])
+
     # Create a grid to store the color of each cell (0 for empty, 1 for no rumor, 2 for rumor)
     color_grid = np.copy(grid)
+
     # init random cell with the rumor in grid and color grid
-    i = np.random.randint(0, param.grid_size)
-    j = np.random.randint(0, param.grid_size)
-    grid[i, j] = -1
-    color_grid[i, j] = 2
+    # get the indices of the cells with one
+    indices = np.argwhere(grid == 1)
+    # choose one of the indices randomly
+    index = indices[np.random.choice(len(indices))]
+    # set the value of the cell to -1 (rumor)
+    grid[index[0], index[1]] = -1
+    # set the color of the cell to 2 (rumor)
+    color_grid[index[0], index[1]] = 2
 
     return grid, color_grid
 
