@@ -7,6 +7,7 @@ from grid_vis import GridVisualizer
 
 # Define the function that runs the simulation
 def run_simulation():
+
     # Get the values entered by the user
     population_density = float(density_entry.get())
     no_rumor_time = int(no_rumor_time_entry.get())
@@ -48,41 +49,54 @@ root.title("Automaton Simulation")
 # Create input fields for the variables
 density_label = tk.Label(root, text="Population Density")
 density_entry = tk.Entry(root)
-density_label.grid(row=0, column=0)
-density_entry.grid(row=0, column=1)
+# Set the default value for the population density
+density_entry.insert(0, "1")
+density_label.grid(row=0, column=0, padx=5, pady=0, sticky="w")
+density_entry.grid(row=0, column=1, padx=5, pady=0)
 
 no_rumor_time_label = tk.Label(root, text="No Rumor Time")
 no_rumor_time_entry = tk.Entry(root)
-no_rumor_time_label.grid(row=1, column=0)
-no_rumor_time_entry.grid(row=1, column=1)
+# Set the default value for the no rumor time
+no_rumor_time_entry.insert(0, "5")
+no_rumor_time_label.grid(row=1, column=0, padx=5, pady=0, sticky="w")
+no_rumor_time_entry.grid(row=1, column=1, padx=5, pady=0)
 
 s1_count_label = tk.Label(root, text="S1 Count")
 s1_count_entry = tk.Entry(root)
-s1_count_label.grid(row=2, column=0)
-s1_count_entry.grid(row=2, column=1)
+# Set the default value for the S1 count
+s1_count_entry.insert(0, "0.25")
+s1_count_label.grid(row=2, column=0, padx=5, pady=0, sticky="w")
+s1_count_entry.grid(row=2, column=1, padx=5, pady=0)
 
 s2_count_label = tk.Label(root, text="S2 Count")
 s2_count_entry = tk.Entry(root)
-s2_count_label.grid(row=3, column=0)
-s2_count_entry.grid(row=3, column=1)
+# Set the default value for the S2 count
+s2_count_entry.insert(0, "0.25")
+s2_count_label.grid(row=3, column=0, padx=5, pady=0, sticky="w")
+s2_count_entry.grid(row=3, column=1, padx=5, pady=0)
 
 s3_count_label = tk.Label(root, text="S3 Count")
 s3_count_entry = tk.Entry(root)
-s3_count_label.grid(row=4, column=0)
-s3_count_entry.grid(row=4, column=1)
+# Set the default value for the S3 count
+s3_count_entry.insert(0, "0.25")
+s3_count_label.grid(row=4, column=0, padx=5, pady=0, sticky="w")
+s3_count_entry.grid(row=4, column=1, padx=5, pady=0)
 
 s4_count_label = tk.Label(root, text="S4 Count")
 s4_count_entry = tk.Entry(root)
-s4_count_label.grid(row=5, column=0)
-s4_count_entry.grid(row=5, column=1)
+# Set the default value for the S4 count
+s4_count_entry.insert(0, "0.25")
+s4_count_label.grid(row=5, column=0, padx=5, pady=0, sticky="w")
+s4_count_entry.grid(row=5, column=1, padx=5, pady=0)
 
 # Add a button to run the simulation
 run_button = tk.Button(root, text="Run Simulation", command=run_simulation)
-run_button.grid(row=6, column=0, columnspan=2)
+run_button.grid(row=6, column=0, columnspan=2, padx=5, pady=5)
 
 # Add a button to quit the program
 quit_button = tk.Button(root, text="Quit", command=root.destroy)
-quit_button.grid(row=7, column=0, columnspan=2)
+quit_button.grid(row=7, column=0, columnspan=2, padx=5, pady=5)
 
 # Start the main loop
 root.mainloop()
+
