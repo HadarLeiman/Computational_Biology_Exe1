@@ -1,6 +1,6 @@
 import numpy as np
 
-
+count_gen = 0
 # simulate one generation of the automaton
 # todo - organize the parameters the function gets
 def one_generation(old_grid, color_grid, param):
@@ -65,8 +65,26 @@ def init_simulation(param):
 
 
 def update(root, old_grid, old_color_grid, param, gridVis):
+    global count_gen
+    count_gen += 1
     # run one generation of the simulation
     new_grid, new_color_grid = one_generation(old_grid, old_color_grid, param)
     # update the grid
-    gridVis.draw_grid(new_color_grid)
+    gridVis.draw_grid(new_color_grid, count_gen)
+    # check if the simulation should stop
+    if np.sum(new_grid == -1) == 0:
+        # empty the grid and write "No rumor spreaders left" in the center
+        gridVis.canvas.create_text(param.grid_size / 2 * gridVis.cell_width, param.grid_size / 2 * gridVis.cell_height,
+                                        text="No rumor spreaders left", font=("Purisa", 30))
+        # wait 5 seconds and then close the window
+        root.after(5000, root.destroy)
+        return
+    elif np.sum(new_color_grid == 1) == 0:
+        # empty the grid and write "Rumor spread to all cells" in the center
+        gridVis.canvas.create_text(param.grid_size / 2 * gridVis.cell_width, param.grid_size / 2 * gridVis.cell_height,
+                                      text="Rumor spread to all cells", font=("Purisa", 30))
+        # wait 5 seconds and then close the window
+        root.after(5000, root.destroy)
+        return
+    # run the function again after 100 milliseconds
     root.after(100, update, root, new_grid, new_color_grid, param, gridVis)
