@@ -28,5 +28,5 @@ for i in range(1, 36):
     print("p = ", df['P'][0], "l = ", df['L'][0], "s = ", df['s1'][0], df['s2'][0], df['s3'][0], df['s4'][0])
 
     # Show the plot
-    plt.show()
     plt.savefig('plots/plot'+str(i)+'.png')
+    plt.show()
