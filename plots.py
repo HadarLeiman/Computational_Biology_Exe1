@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-for i in range(1, 36):
+for i in range(1,4):
     # Load the data from the CSV file
-    df = pd.read_csv('csv/data'+str(i)+'.csv', header=None, names=['simulation', 'generation', 'percentage', 'P', 'L', 's1', 's2', 's3', 's4'])
+    df = pd.read_csv('csv/dataB'+str(i)+'.csv', header=None, names=['simulation', 'generation', 'percentage', 'P', 'L', 's1', 's2', 's3', 's4'])
 
     # Group the data by simulation number
     groups = df.groupby('simulation')

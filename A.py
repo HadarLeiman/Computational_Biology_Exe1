@@ -12,7 +12,7 @@ def update_csv(percentage_of_people_who_heard_the_rumor, number_of_sim, file_nam
              +','+str(p) + ',' + str(l) + ','+ str(s_values)[13:-2]+ "\n")
 
 # create a dictionary of the parameters to run simulations:
-param_dict = {"population_density": [0.9, 0.7, 0.5], "no_rumor_time": [7, 5, 3, 1], "skepticism": [{"S1": 0.25, "S2": 0.25, "S3": 0.25, "S4": 0.25},
+param_dict = {"population_density": [0.9, 0.7, 0.5], "no_rumor_time": [0, 5, 20], "skepticism": [{"S1": 0.25, "S2": 0.25, "S3": 0.25, "S4": 0.25},
                                                                                                 {"S1": 0.5, "S2": 0.25, "S3": 0.25, "S4": 0},
                                                                                                 {"S1": 0, "S2": 0.25, "S3": 0.25, "S4": 0.5}]}
 number_of_iteration = 0
