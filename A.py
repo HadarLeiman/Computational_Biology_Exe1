@@ -17,9 +17,10 @@ param_dict = {"population_density": [0.9, 0.7, 0.5], "no_rumor_time": [0, 5, 20]
                                                                                                 {"S1": 0, "S2": 0.25, "S3": 0.25, "S4": 0.5}]}
 number_of_iteration = 0
 # initialize the simulation
-for j in range(3):
-    for k in range(4):
-        for s in range(3):
+# loop through the parameters of param_dict
+for j in range(param_dict["population_density"]):
+    for k in range(param_dict["no_rumor_time"]):
+        for s in range(param_dict["skepticism"]):
             number_of_iteration += 1
             print(number_of_iteration)
             print("j = ", j, "k = ", k, "s = ", s)

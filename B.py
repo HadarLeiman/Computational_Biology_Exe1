@@ -12,15 +12,14 @@ def update_csv(percentage_of_people_who_heard_the_rumor, number_of_sim, file_nam
              +','+str(p) + ',' + str(l) + ','+ str(s_values)[13:-2]+ "\n")
 
 # create a dictionary of the parameters to run simulations:
-param_dict = {"population_density": [0.9, 0.5], "no_rumor_time": 3, "skepticism": {"S1": 0.25, "S2": 0.25, "S3": 0.25, "S4": 0.25}}
+param_dict = {"population_density": [0.7, 0.5], "no_rumor_time": 5, "skepticism": {"S1": 0.25, "S2": 0.25, "S3": 0.25, "S4": 0.25}}
 number_of_iteration = 0
-# initialize the simulation
 for j in range(2):
     number_of_iteration += 1
     param = parameters()
-    param.update_param(param_dict["population_density"][j], param_dict["no_rumor_time"], param_dict["skepticism"], location=2)
+    param.update_param(param_dict["population_density"][j], param_dict["no_rumor_time"], param_dict["skepticism"], location=4)
     count_gen = 0
-    filename = str("csv/dataB" + str(number_of_iteration) + ".csv")
+    filename = str("csv/data_4" + str(number_of_iteration) + ".csv")
     # delete the csv file content if it exists
     with open(filename, 'w') as f:
         f.write("")
@@ -35,13 +34,13 @@ for j in range(2):
             percentage_people_who_heard_the_rumor = np.sum(color_grid==2) * 100 / num_people
             # every 10 generations, write the results to csv file
             if count_gen%10==0:
-                update_csv(percentage_people_who_heard_the_rumor, i, filename, param_dict["population_density"][j], param_dict["no_rumor_time"], param_dict["skepticism"][s].values())
+                update_csv(percentage_people_who_heard_the_rumor, i, filename, param_dict["population_density"][j], param_dict["no_rumor_time"], param_dict["skepticism"].values())
             # check if the rumor has reached 99.7% of the population
             elif percentage_people_who_heard_the_rumor > 99.7:
-                update_csv(percentage_people_who_heard_the_rumor, i, filename, param_dict["population_density"][j], param_dict["no_rumor_time"], param_dict["skepticism"][s].values())
+                update_csv(percentage_people_who_heard_the_rumor, i, filename, param_dict["population_density"][j], param_dict["no_rumor_time"], param_dict["skepticism"].values())
                 break
             # check if the simulation should stop
             elif np.sum(grid == -1) == 0 or np.sum(color_grid == 1) == 0 or count_gen>1000:
-                update_csv(percentage_people_who_heard_the_rumor, i, filename, param_dict["population_density"][j], param_dict["no_rumor_time"], param_dict["skepticism"][s].values())
+                update_csv(percentage_people_who_heard_the_rumor, i, filename, param_dict["population_density"][j], param_dict["no_rumor_time"], param_dict["skepticism"].values())
                 break
             count_gen += 1

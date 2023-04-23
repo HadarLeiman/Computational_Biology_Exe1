@@ -45,6 +45,20 @@ class parameters:
         if location == 2:
             # init the self.skepticism with rows of s1, s2, s3, s4
             # create a numpy array 1x4 of s1, s2, s3, s4
-            row = np.array(('S1', 'S2', 'S3', 'S4','S1', 'S2', 'S3', 'S4','S1', 'S2', 'S3', 'S4')).reshape(3, 4)
+            row = np.array(('S1', 'S2', 'S3', 'S4','S1', 'S2', 'S3', 'S4','S1', 'S2', 'S3', 'S4', 'S1', 'S2', 'S3', 'S4')).reshape(4, 4)
+            # multiply the numpy array to the size of the grid
+            self.skepticism = np.tile(row, (self.grid_size, self.grid_size))
+
+        if location == 3:
+            # init the self.skepticism with rows of s1, s2, s3, s4
+            # create a numpy array 1x4 of s1, s2, s3, s4
+            row = np.array(('S1', 'S1', 'S1', 'S2','S2', 'S2', 'S2', 'S3','S3', 'S3', 'S3', 'S4', 'S4', 'S4', 'S4', 'S4')).reshape(2, 8)
+            # multiply the numpy array to the size of the grid
+            self.skepticism = np.tile(row, (self.grid_size, self.grid_size))
+
+        if location == 4:
+            # init the self.skepticism with rows of s1, s2, s3, s4
+            # create a numpy array 1x4 of s1, s2, s3, s4
+            row = np.array(('S1', 'S2', 'S1', 'S2','S1', 'S2', 'S3', 'S4','S3', 'S4', 'S3', 'S4')).reshape(2, 6)
             # multiply the numpy array to the size of the grid
             self.skepticism = np.tile(row, (self.grid_size, self.grid_size))
