@@ -41,7 +41,7 @@ def run_simulation():
 
     # update the parameters file with the values entered by the user
     param = parameters.parameters()
-    param.update_param(population_density, gossip_rest_period, skepticism_distribution, location=2)
+    param.update_param(population_density, gossip_rest_period, skepticism_distribution)
 
     # initialize the simulation
     grid, color_grid = init_simulation(param)
