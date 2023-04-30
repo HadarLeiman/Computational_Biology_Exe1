@@ -12,15 +12,16 @@ def update_csv(percentage_of_people_who_heard_the_rumor, number_of_sim, file_nam
              +','+str(p) + ',' + str(l) + ','+ str(s_values)[13:-2]+ "\n")
 
 # create a dictionary of the parameters to run simulations:
-param_dict = {"population_density": [0.9, 0.7, 0.5], "no_rumor_time": [0, 5, 20], "skepticism": [{"S1": 0.25, "S2": 0.25, "S3": 0.25, "S4": 0.25},
+param_dict = {"population_density": [0.9, 0.7, 0.5], "no_rumor_time": [0, 1, 5, 20], "skepticism": [{"S1": 0.25, "S2": 0.25, "S3": 0.25, "S4": 0.25},
                                                                                                 {"S1": 0.5, "S2": 0.25, "S3": 0.25, "S4": 0},
                                                                                                 {"S1": 0, "S2": 0.25, "S3": 0.25, "S4": 0.5}]}
+
 number_of_iteration = 0
 # initialize the simulation
 # loop through the parameters of param_dict
-for j in range(param_dict["population_density"]):
-    for k in range(param_dict["no_rumor_time"]):
-        for s in range(param_dict["skepticism"]):
+for j in range(len(param_dict["population_density"])):
+    for k in range(len(param_dict["no_rumor_time"])):
+        for s in range(len(param_dict["skepticism"])):
             number_of_iteration += 1
             print(number_of_iteration)
             print("j = ", j, "k = ", k, "s = ", s)
@@ -40,8 +41,8 @@ for j in range(param_dict["population_density"]):
                     # run one generation of the simulation
                     grid, color_grid = one_generation(grid, color_grid, param)
                     percentage_people_who_heard_the_rumor = np.sum(color_grid==2) * 100 / num_people
-                    # every 10 generations, write the results to csv file
-                    if count_gen%10==0:
+                    # every 5 generations, write the results to csv file
+                    if count_gen%2==0:
                         update_csv(percentage_people_who_heard_the_rumor, i, filename, param_dict["population_density"][j], param_dict["no_rumor_time"][k], param_dict["skepticism"][s].values())
                     # check if the rumor has reached 99.7% of the population
                     elif percentage_people_who_heard_the_rumor > 99.7:
